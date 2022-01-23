@@ -389,6 +389,11 @@ fieldset {
   transform: scale(1.2);
 }
 
+.dialog .cardImageContainer::before,
+.liveTvPage .cardImageContainer::before {
+  display: none;
+}
+
 .layout-mobile
   .card:not(.overflowSquareCard):hover
   .cardImageContainer::before {
@@ -547,11 +552,9 @@ span.material-icons.detailButton-icon.favorite.ratingbutton-icon-withrating {
   height: 2px;
 }
 
-/*fancy link end*/
-
 .listItem.listItem-border:hover {
   border-color: rgba(0, 0, 0, 0) !important;
-  background: #3f3f3f;
+  background: #1010109e;
 }
 
 .listItem-border {
@@ -662,6 +665,10 @@ div[data-role="page"] {
     black 15px calc(100% - 15px),
     transparent
   );
+}
+
+div[data-role="page"] > * {
+  padding-top: 16px;
 }
 
 .layout-tv .mainAnimatedPages {
@@ -778,6 +785,14 @@ h1.sliderBubbleText {
   background-clip: text;
   color: transparent;
   font-weight: 700;
+}
+
+/* Music Player */
+.appfooter,
+.playlistSectionButton {
+  background: transparent !important;
+  -webkit-backdrop-filter: blur(50px);
+  backdrop-filter: blur(50px);
 }
 
 /*cardbox border-radius change*/
@@ -955,6 +970,16 @@ h2 {
   margin: 0 !important;
   padding: 0 !important;
   overflow: scroll;
+}
+
+.drawer-open
+  .mainDrawer-scrollContainer.scrollContainer.focuscontainer-y.scrollY
+  > div:nth-child(1) {
+  height: 15px !important;
+}
+
+.mainDrawer-scrollContainer {
+  padding-bottom: 0;
 }
 
 /*Fixing position of tv or movie poster*/
@@ -1209,10 +1234,16 @@ h2 {
   padding: 0;
   margin: 0;
   overflow: hidden;
-  height: 80%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   position: relative;
   top: 48%;
   transform: translateY(-50%);
+}
+
+.layout-mobile .playlistSectionButton {
+  position: static !important;
 }
 
 .playlistSectionButton .volumecontrol {
@@ -1289,7 +1320,7 @@ h2 {
   height: fit-content;
   overflow: hidden;
   margin-bottom: 1.5rem;
-  border-radius: var(--rounding);
+  border-radius: var(--rounding) !important;
 }
 
 #itemDetailPage .secondary.listItem-overview.listItemBodyText {
@@ -1319,7 +1350,8 @@ h2 {
   top: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(-135deg, rgba(0, 205, 0, 0.4), transparent);
+  background: var(--accent);
+  opacity: 0.45;
 }
 .layout-mobile .listItemIndicators > * {
   display: none;
@@ -1339,6 +1371,11 @@ h2 {
 
 .layout-mobile .listItemBodyText {
   max-width: 100% !important;
+}
+
+.layout-mobile .listItemBodyText.secondary,
+.listItem .secondary {
+  color: #999 !important;
 }
 
 .layout-mobile .listItem .playedIndicator {
@@ -1570,11 +1607,6 @@ html:not(.layout-mobile) #loginPage .inputLabel:not(.inputLabel-float) {
   display: none;
 }
 
-.layout-mobile h1.itemName {
-  font-size: 2.2em;
-  font-weight: 700;
-}
-
 .layout-mobile #loginPage .inputContainer {
   position: relative;
   height: 3rem;
@@ -1676,6 +1708,10 @@ html:not(.layout-mobile) #loginPage .inputLabel:not(.inputLabel-float) {
   border: 2px solid white;
 }
 
+#loginPage .emby-button:hover {
+  background: rgb(255 255 255 / 0.35);
+}
+
 div#divUsers::-webkit-scrollbar-track-piece {
   background: transparent !important;
 }
@@ -1683,25 +1719,13 @@ div#divUsers::-webkit-scrollbar-track {
   box-shadow: none !important;
 }
 #loginPage .raised::before {
-  background: rgb(255 255 255 / 0.25);
+  display: none;
 }
 
 #loginPage .raised span {
   z-index: 1;
   color: white;
   background: transparent;
-}
-
-#loginPage .raised::before {
-  transform: scale(0);
-  transition: all 0.35s !important;
-  border-radius: 100vh;
-  opacity: 1;
-  z-index: -5;
-}
-
-#loginPage .raised:hover::before {
-  transform: scale(1) !important;
 }
 
 html:not(.layout-mobile) #loginPage .inputContainer input {
@@ -1805,27 +1829,9 @@ a.button-link.emby-button[href="https://jellyfin.org"]::after
     background: rgba(28, 28, 28, 0.8);
     box-shadow: 0 0 8px black !important;
   }
-}
-
-@supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-  .mainDrawer.drawer-open {
-    background: rgba(0, 0, 0, 0.85);
-  }
-  .dialogBackdropOpened {
-    opacity: 1 !important;
-    background: rgba(0, 0, 0, 0.1);
-  }
-  .dialog {
-    background-color: rgba(0, 0, 0, 0.95) !important;
-    box-shadow: 0 0 20px 4px black;
-  }
-  .mainDrawer {
-    background-color: rgba(0, 0, 0, 0.95);
-    box-shadow: none;
-  }
-  .playerStats {
-    background: rgba(28, 28, 28, 0.8);
-    box-shadow: 0 0 8px black !important;
+  .appfooter,
+  .playlistSectionButton {
+    background: rgba(6, 6, 6, 0.65) !important;
   }
 }
 
@@ -1889,4 +1895,18 @@ a.button-link.emby-button[href="https://jellyfin.org"]::after
 
 .dashboardSection .sectionTitleTextButton > .material-icons {
   margin-left: 0.5em;
+}
+
+/* Live tv fix */
+.absolutePageTabContent {
+  top: 0 !important;
+}
+
+/* Fix Playback report plugn text */
+
+select#weeks,
+select#max_data_age_select,
+select#files_to_keep,
+select#user_list_for_add {
+  color: white !important;
 }
